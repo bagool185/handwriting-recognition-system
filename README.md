@@ -1,7 +1,6 @@
 # Handwritting Recognition System
 
-Python built handwritten digits recognition system using the k-NN algorithm.
-Find explanation here: https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm
+Python built handwritten digits recognition system using the [k-NN algorithm](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm/).
 
 # Prerequisites
 
