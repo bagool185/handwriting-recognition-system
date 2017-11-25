@@ -1,9 +1,10 @@
 from PyQt5.QtWidgets import QMessageBox
+from singleton import Singleton
 from mnist import MNIST
 from numpy import *
 
 
-class Train:
+class Train(metaclass=Singleton):
     """ Class that manipulates the training data set from the MNIST data set. """
     def __init__(self, img_size=28):
         mndata = MNIST('MNIST_samples')  # Load the MNIST data set.

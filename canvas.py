@@ -1,10 +1,11 @@
+from singleton import Singleton
 from matplotlib import pyplot as plt
 from PyQt5.QtWidgets import QMessageBox
 from error_handling import InvalidImageSize
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 
 
-class Canvas:
+class Canvas(metaclass=Singleton):
     """ Class that creates and manipulates canvas. """
     def __init__(self, image=None, img_size=28):
         self.image = image

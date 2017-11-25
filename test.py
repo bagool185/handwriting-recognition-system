@@ -1,8 +1,9 @@
+from singleton import Singleton
 from mnist import MNIST
 import random
 
 
-class Test:
+class Test(metaclass=Singleton):
     """ Class that manipulates the test data set from the MNIST data set. """
     def __init__(self):
         mndata = MNIST('MNIST_samples')  # Load the MNIST data set
