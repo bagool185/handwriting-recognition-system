@@ -15,6 +15,6 @@ In order to run it you'll need:
 
 # Further instructions
 
-Place the ubyte files from MNIST into a directory called MNIST_samples and put in the same directory with the .py files.
+Place the ubyte files from MNIST into a directory called MNIST_samples and put in the same directory as the .py files.
 
-In order to run it, open the terminal / cmd in the same directory with the .py files and type python kNN.py
+In order to run it, open the terminal / cmd in the same directory as the .py files and type python kNN.py
