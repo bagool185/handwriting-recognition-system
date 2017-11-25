@@ -48,27 +48,25 @@ class Statistics(metaclass=Singleton):
         try:
             file_path = QFileDialog.getOpenFileName(None, 'OpenFile', '.', 'CSV files (*.csv)')
 
-            if os.path.exists(file_path):
+            k_occurrance = [0 for k in range(1, 17, 1)]
+            k_accuracy = [0 for k in range(1, 17, 1)]
 
-                k_occurrance = [0 for k in range(1, 17, 1)]
-                k_accuracy = [0 for k in range(1, 17, 1)]
+            with open(file_path[0], "r") as csv_file:
+                try:
+                    lines = csv.reader(csv_file, delimiter=',')
 
-                with open(file_path[0], "r") as csv_file:
-                    try:
-                        lines = csv.reader(csv_file, delimiter=',')
+                    for row in lines:  # Read the file line by line.
+                        # The lines are structured as follows:
+                        # k, number of tests ran of k, accuracy of tests ran with k
+                        k = int(row[0])
+                        occurrance = int(row[1])
+                        accuracy = float(row[2])
 
-                        for row in lines:  # Read the file line by line.
-                            # The lines are structured as follows:
-                            # k, number of tests ran of k, accuracy of tests ran with k
-                            k = int(row[0])
-                            occurrance = int(row[1])
-                            accuracy = float(row[2])
-
-                            k_occurrance[k] = occurrance
-                            k_accuracy[k] = accuracy
-                    except IOError:
-                        QMessageBox.warning(None, "Loading data error",
-                                            "There has been an error reading the data from the given file")
+                        k_occurrance[k] = occurrance
+                        k_accuracy[k] = accuracy
+                except IOError as e:
+                    QMessageBox.warning(None, "Loading data error",
+                                        f"There has been an error reading the data from the given file.\n{e}")
 
                 self.generate_plots(k_occurrance, k_accuracy)
         except:
@@ -86,15 +84,14 @@ class Statistics(metaclass=Singleton):
             file_path = QFileDialog.getSaveFileName(None, 'SaveFile', f'accuracy-{datetime.datetime.now()}.csv',
                                                     'CSV files (*.csv)')
 
-            if os.path.exists(file_path):
-                with open(file_path[0], "w") as csv_file:
-                    try:
-                        for k in range(1, 16, 1):
-                            csv_file.write(f"{k},{self.k_occurrance[k]},{self.k_accuracy[k]}\n")
+            with open(file_path[0], "w") as csv_file:
+                try:
+                    for k in range(1, 16, 1):
+                        csv_file.write(f"{k},{self.k_occurrance[k]},{self.k_accuracy[k]}\n")
 
-                    except IOError:
-                        QMessageBox.warning(None, "Saving file error",
-                                            "There has been an error trying to save the file. Please try again.")
+                except IOError as e:
+                    QMessageBox.warning(None, "Saving file error",
+                                        "There has been an error trying to save the file.\n{e}")
 
         except:
             # An error will be raised when the user quits the save file dialog, so it has to be passed.
