@@ -15,8 +15,8 @@ class Classifier:
         """
         data_set_img_size = data_set.shape[0]   # shape is a tuple with the form (rows, columns), so shape[0] = #rows.
         diff_mat = tile(in_x, (data_set_img_size, 1)) - data_set  # Stores the vector differences.
-        sq_diff_mat = diff_mat ** 2
-        sq_distances = sq_diff_mat.sum(axis=1)
+        diff_mat **= 2
+        sq_distances = diff_mat.sum(axis=1)
         distances = sq_distances ** 0.5  # The final Euclidian distances.
         sorted_dist_indices = distances.argsort()  # The indices that would sort distances.
         class_count = {}

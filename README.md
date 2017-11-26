@@ -6,11 +6,9 @@ Python built handwritten digits recognition system using the [k-NN algorithm](ht
 
 In order to run it you'll need:
 
-* [The MNIST data set](http://yann.lecun.com/exdb/mnist/)
 * [Python 3.6](https://www.python.org/downloads/release/python-363/)
 * [python-mnist](https://github.com/sorki/python-mnist/)
-* [PyQt5](https://pypi.python.org/pypi/PyQt5/)
-* [numpy](https://www.scipy.org/scipylib/download.html/)
+* [PyQt5](https://pypi.python.org/pypi/PyQt5/) - with TkInter integration
 * [matplotlib](http://matplotlib.org/users/installing.html/)
 
 # Further instructions
