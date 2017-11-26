@@ -90,7 +90,7 @@ class Statistics(metaclass=Singleton):
             with open(file_path[0], "w") as csv_file:
                 try:
                     for k in range(1, 16, 1):
-                        csv_file.write(f"{k},{self.k_occurrance[k]},{self.k_accuracy[k]}\n")
+                        csv_file.write(f"{k},{int(self.k_occurrance[k])},{self.k_accuracy[k]}\n")
 
                 except IOError as e:
                     QMessageBox.warning(None, "Saving file error",
