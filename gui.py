@@ -1,6 +1,7 @@
 import sys
 
 from PyQt5.QtWidgets import QDialog, QLabel, QPushButton, QMessageBox, QApplication, QSpinBox, QVBoxLayout
+from PyQt5.QtCore import QTimer
 from error_handling import InvalidK
 from statistics import Statistics
 from classifier import Classifier
@@ -38,6 +39,8 @@ class GUI(QDialog):
         self.exit_app_btn = QPushButton("Exit application")
         self.graph_from_file_dialog = QPushButton("Generate accuracy rate plot from file")
 
+        self.timer = QTimer()
+
         self.initialise_event_handling()
         self.prepare_layout()
 
@@ -67,6 +70,8 @@ class GUI(QDialog):
         self.graph_from_file_dialog.clicked.connect(self.statistics.load_plot_from_file)
         self.exit_app_btn.clicked.connect(GUI.exit_application)
 
+        self.timer.timeout.connect(lambda: self.next_img_btn.setEnabled(True))
+
     def get_next_image(self):
         """ Method that loads another image from the test set. """
         next_img, next_img_label = self.testing_objects.random_test()
@@ -88,6 +93,10 @@ class GUI(QDialog):
             Seems like I was {result}
             k was {self.k}
         """)
+
+        self.next_img_btn.setDisabled(True)  # Disable the button for some time to avoid spam.
+
+        self.timer.start(1000)
 
     def change_k(self, new_k):
         """ Event handler for the spinbox. It updates the value of k """
