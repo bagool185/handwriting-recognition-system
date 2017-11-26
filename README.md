@@ -14,5 +14,10 @@ In order to run it you'll need:
 # Further instructions
 
 Place the ubyte files from MNIST into a directory called MNIST_samples and put in the same directory as the .py files.
+Windows users, please make sure that the file names are as follows, without any extension, otherwise it might not work:
+* train-labels-idx1-ubyte
+* train-images-idx3-ubyte
+* t10k-labels-idx1-ubyte
+* t10k-images-idx3-ubyte
 
 In order to run it, open the terminal / cmd in the same directory as the .py files and type python kNN.py
