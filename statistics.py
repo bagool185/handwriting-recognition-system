@@ -64,14 +64,17 @@ class Statistics(metaclass=Singleton):
 
                         k_occurrance[k] = occurrance
                         k_accuracy[k] = accuracy
+
+                        self.generate_plots(k_occurrance, k_accuracy)
+
                 except IOError as e:
                     QMessageBox.warning(None, "Loading data error",
                                         f"There has been an error reading the data from the given file.\n{e}")
 
-                self.generate_plots(k_occurrance, k_accuracy)
         except:
-            # An error will be raised when the user quits the open file dialog, so it has to be passed.
-
+            # Usually bad practice, but an error will be raised when the user quits the open file dialog, so it has to
+            # be passed, as it doesn't affect the functionality of the program, nor should it be considered an error
+            # in this context
             pass
 
     def save_in_file(self):
@@ -91,7 +94,7 @@ class Statistics(metaclass=Singleton):
 
                 except IOError as e:
                     QMessageBox.warning(None, "Saving file error",
-                                        "There has been an error trying to save the file.\n{e}")
+                                        f"There has been an error trying to save the file.\n{str(e)}")
 
         except:
             # An error will be raised when the user quits the save file dialog, so it has to be passed.
