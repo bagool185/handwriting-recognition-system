@@ -46,6 +46,8 @@ class GUI(QDialog):
 
         self.get_next_image()  # The first image.
 
+        self.setWindowTitle("Handwritting recognition system")
+
     def prepare_layout(self):
         """ Method that sets GUI's layout and adds to it all the widgets. """
         self.layout.addWidget(self.canvas.get_canvas())
