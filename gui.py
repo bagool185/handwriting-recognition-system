@@ -2,7 +2,6 @@ import sys
 
 from PyQt5.QtWidgets import QDialog, QLabel, QPushButton, QMessageBox, QApplication, QSpinBox, QVBoxLayout
 from PyQt5.QtCore import QTimer
-from error_handling import InvalidK, InvalidN
 from statistics import Statistics
 from classifier import Classifier
 from test import Test
@@ -118,27 +117,11 @@ class GUI(QDialog):
 
     def change_k(self, new_k):
         """ Event handler for the k spinbox. It updates the value of k. """
-        try:
-            if 1 > new_k or new_k > 15 or int(new_k) != new_k:
-                raise InvalidK("Invalid k value. k should be an integer >= 1 and <= 15")
-
-            self.k = new_k
-
-        except InvalidK as e:
-            QMessageBox.warning(None, "Invalid k value error message", str(e))
-            self.k_box.setValue(self.k)
+        self.k = new_k
 
     def change_n(self, new_n):
         """ Event handler for the n spinbox. It updates the value of n. """
-        try:
-            if 1 > new_n or new_n > 10000 or int(new_n) != new_n:
-                raise InvalidN("Invalid n value. n should be an integer >= 1 and <= 10000")
-
-            self.n = new_n
-
-        except InvalidN as e:
-            QMessageBox.warning(None, "Invalid n value error message", str(e))
-            self.n_box.setValue(self.n)
+        self.n = new_n
 
     def classify_n(self):
         """ Classify the first n tests from the MNIST test data set, where n is chosen by the user"""
