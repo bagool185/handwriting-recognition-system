@@ -2,7 +2,7 @@ import sys
 
 from PyQt5.QtWidgets import QDialog, QLabel, QPushButton, QMessageBox, QApplication, QSpinBox, QVBoxLayout
 from PyQt5.QtCore import QTimer
-from error_handling import InvalidK
+from error_handling import InvalidK, InvalidN
 from statistics import Statistics
 from classifier import Classifier
 from test import Test
@@ -21,17 +21,21 @@ class GUI(QDialog):
 
         self.result_label = QLabel()
         self.explanatory_label = QLabel("You can use the spinbox below to change the value of k (1 <= k <= 15)")
-
+        self.test_cases_label = QLabel("Choose the value of n from the spinbox below (1 <= n <= 10000)")
         self.training_mat = train_object.training_mat
         self.training_labels = train_object.training_labels
         self.k = 8
-
+        self.n = 1
         # Widgets initialization.
         self.layout = QVBoxLayout()
 
         self.k_box = QSpinBox()
+        self.n_box = QSpinBox()
+
+        self.n_box.setValue(self.n)
         self.k_box.setValue(self.k)
 
+        self.test_cases_btn = QPushButton("Test n cases")
         self.save_btn = QPushButton("Save current results")
         self.next_img_btn = QPushButton("Get the next image")
         self.graph_btn = QPushButton("See the current accuracy rate plot")
@@ -54,6 +58,11 @@ class GUI(QDialog):
         self.layout.addWidget(self.next_img_btn)
         self.layout.addWidget(self.explanatory_label)
         self.layout.addWidget(self.k_box)
+
+        self.layout.addWidget(self.test_cases_label)
+        self.layout.addWidget(self.n_box)
+        self.layout.addWidget(self.test_cases_btn)
+
         self.layout.addWidget(self.graph_btn)
         self.layout.addWidget(self.save_btn)
         self.layout.addWidget(self.graph_from_file_dialog)
@@ -100,16 +109,28 @@ class GUI(QDialog):
         self.timer.start(1000)
 
     def change_k(self, new_k):
-        """ Event handler for the spinbox. It updates the value of k """
+        """ Event handler for the k spinbox. It updates the value of k. """
         try:
-            if 1 > new_k or new_k > 15:
-                raise InvalidK("Invalid k value. k should be >= 1 and <= 15")
+            if 1 > new_k or new_k > 15 or int(new_k) != new_k:
+                raise InvalidK("Invalid k value. k should be an integer >= 1 and <= 15")
 
             self.k = new_k
 
         except InvalidK as e:
             QMessageBox.warning(None, "Invalid k value error message", str(e))
             self.k_box.setValue(self.k)
+
+    def change_n(self, new_n):
+        """ Event handler for the n spinbox. It updates the value of n. """
+        try:
+            if 1 > new_n or new_n > 10000 or int(new_n) != new_n:
+                raise InvalidN("Invalid n value. n should be an integer >= 1 and <= 10000")
+
+            self.n = new_n
+
+        except InvalidN as e:
+            QMessageBox.warning(None, "Invalid n value error message", str(e))
+            self.n_box.setValue(self.n)
 
     @staticmethod
     def exit_application():

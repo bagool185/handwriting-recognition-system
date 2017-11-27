@@ -31,7 +31,7 @@ class Statistics(metaclass=Singleton):
         plt.plot(range(1, 17, 1), occurrance, label='occurrance', color='r')
 
         plt.xlabel('k')
-        plt.ylabel('current accuracy')
+        plt.ylabel('accuracy and occurance')
         plt.title("Accuracy rate plot")
 
         ax = plt.gca()
