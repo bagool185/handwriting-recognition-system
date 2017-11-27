@@ -18,19 +18,40 @@ class GUI(QDialog):
         self.testing_objects = Test()
         self.canvas = canvas
 
-        self.result_label = QLabel()
-        self.explanatory_label = QLabel("You can use the spinbox below to change the value of k (1 <= k <= 15)")
-        self.test_cases_label = QLabel("Choose the value of n from the spinbox below (1 <= n <= 10000)")
         self.training_mat = train_object.training_mat
         self.training_labels = train_object.training_labels
+
         self.k = 8
         self.n = 1
-        # Widgets initialization.
-        self.layout = QVBoxLayout()
 
+        # Widgets initialization.
+        # QLabels
+        self.result_label = QLabel()
+        self.test_cases_label = QLabel("Choose the value of n from the spinbox below (1 <= n <= 10000)")
+        self.explanatory_label = QLabel("You can use the spinbox below to change the value of k (1 <= k <= 15)")
+        # QSpinboxes
         self.k_box = QSpinBox()
         self.n_box = QSpinBox()
+        # QButtons
+        self.test_cases_btn = QPushButton("Test n cases")
+        self.exit_app_btn = QPushButton("Exit application")
+        self.save_btn = QPushButton("Save current results")
+        self.next_img_btn = QPushButton("Get the next image")
+        self.graph_btn = QPushButton("See the current accuracy rate plot")
+        self.graph_from_file_dialog = QPushButton("Generate accuracy rate plot from file")
 
+        self.layout = QVBoxLayout()
+
+        self.timer = QTimer()
+
+        self.initialise_values()
+        self.initialise_event_handling()
+        self.prepare_layout()
+
+        self.get_next_image()  # The first image.
+
+    def initialise_values(self):
+        """ Method to set initial values for widgets. """
         self.k_box.setMinimum(1)
         self.k_box.setMaximum(15)
 
@@ -39,20 +60,6 @@ class GUI(QDialog):
 
         self.n_box.setValue(self.n)
         self.k_box.setValue(self.k)
-
-        self.test_cases_btn = QPushButton("Test n cases")
-        self.save_btn = QPushButton("Save current results")
-        self.next_img_btn = QPushButton("Get the next image")
-        self.graph_btn = QPushButton("See the current accuracy rate plot")
-        self.exit_app_btn = QPushButton("Exit application")
-        self.graph_from_file_dialog = QPushButton("Generate accuracy rate plot from file")
-
-        self.timer = QTimer()
-
-        self.initialise_event_handling()
-        self.prepare_layout()
-
-        self.get_next_image()  # The first image.
 
         self.setWindowTitle("Handwritting recognition system")
 
@@ -145,11 +152,12 @@ class GUI(QDialog):
 
         accuracy = (1.0 - errors / self.n) * 100.0
 
-        classification_results = f"""Classification complete. The results are as follows:
-                                     k: {self.k}      
-                                     number_of_tests: {self.n}
-                                     accuracy: {accuracy} %
-                                     number_of_errors: {errors}
+        classification_results = f"""
+        Classification complete. The results are as follows:
+            k: {self.k}      
+            number_of_tests: {self.n}
+            accuracy: {accuracy} %
+            number_of_errors: {errors}
                                   """
 
         QMessageBox.information(None, "Classification results", classification_results)
