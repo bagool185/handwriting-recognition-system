@@ -22,12 +22,16 @@ class Statistics(metaclass=Singleton):
             occurrence = self.k_occurrence[0:]
             accuracy = self.k_accuracy[0:]
 
-        for k in range(15):  # Calculate the accuracy for each k.
+        temp_accuracy = []
+
+        temp_accuracy.extend(accuracy)  # Store the accuracy in a temporal vector so it won't be divided each time.
+
+        for k in range(16):  # Calculate the accuracy for each k.
             if occurrence[k] > 0:
-                accuracy[k] /= occurrence[k]
+                temp_accuracy[k] /= occurrence[k]
 
         plt.gca().clear()  # Clear the plot area.
-        plt.scatter(range(16), accuracy, label='current accuracy', color='g')
+        plt.scatter(range(16), temp_accuracy, label='current accuracy', color='g')
 
         plt.xlabel('k')
         plt.ylabel('accuracy and occurance')
@@ -47,8 +51,8 @@ class Statistics(metaclass=Singleton):
         try:
             file_path = QFileDialog.getOpenFileName(None, 'OpenFile', '.', 'CSV files (*.csv)')
 
-            k_occurrence = [0 for k in range(17)]
-            k_accuracy = [0 for k in range(17)]
+            k_occurrence = [0 for k in range(16)]
+            k_accuracy = [0 for k in range(16)]
 
             with open(file_path[0], "r") as csv_file:
                 try:
