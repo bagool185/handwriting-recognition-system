@@ -32,6 +32,12 @@ class GUI(QDialog):
         self.k_box = QSpinBox()
         self.n_box = QSpinBox()
 
+        self.k_box.setMinimum(1)
+        self.k_box.setMaximum(15)
+
+        self.n_box.setMinimum(1)
+        self.n_box.setMaximum(10000)
+
         self.n_box.setValue(self.n)
         self.k_box.setValue(self.k)
 
@@ -136,8 +142,8 @@ class GUI(QDialog):
 
     def classify_n(self):
         """ Classify the first n tests from the MNIST test data set, where n is chosen by the user"""
-        QMessageBox.information(None, "Notice",
-                                "Classification is in progress and might take some  please don't exit the application.")
+        QMessageBox.information(None, "Notice", "Classification is in progress and might take some time please don't "
+                                                "exit the application.")
 
         errors = 0.0
 
@@ -153,7 +159,8 @@ class GUI(QDialog):
         accuracy = (1.0 - errors / self.n) * 100.0
 
         classification_results = f"""Classification complete. The results are as follows:
-                                     k: {self.k}      number_of_tests: {self.n}
+                                     k: {self.k}      
+                                     number_of_tests: {self.n}
                                      accuracy: {accuracy} %
                                      number_of_errors: {errors}
                                   """
