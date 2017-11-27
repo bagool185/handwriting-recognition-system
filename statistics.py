@@ -97,5 +97,7 @@ class Statistics(metaclass=Singleton):
                                         f"There has been an error trying to save the file.\n{str(e)}")
 
         except:
-            # An error will be raised when the user quits the save file dialog, so it has to be passed.
+            # Usually bad practice, but an error will be raised when the user quits the open file dialog, so it has to
+            # be passed, as it doesn't affect the functionality of the program, nor should it be considered an error
+            # in this context
             pass
