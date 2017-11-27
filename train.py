@@ -5,6 +5,7 @@ from numpy import *
 
 import os
 
+
 class Train(metaclass=Singleton):
     """ Class that manipulates the training data set from the MNIST data set. """
     def __init__(self, img_size=28):

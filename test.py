@@ -4,6 +4,7 @@ import random
 
 import os
 
+
 class Test(metaclass=Singleton):
     """ Class that manipulates the test data set from the MNIST data set. """
     def __init__(self):
