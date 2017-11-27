@@ -18,7 +18,7 @@ class Train(metaclass=Singleton):
     def train(self):
         """ Method that carries the training. """
 
-        QMessageBox.information(None, "Training in progress", "Training in progress. Please, press OK and wait.")
+        QMessageBox.information(None, "Training in progress", "Training in progress. Please press OK and wait.")
 
         # Build a training matrix with each line being a vector representing an image.
         for i in range(self.train_size):

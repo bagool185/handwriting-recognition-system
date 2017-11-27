@@ -61,13 +61,15 @@ class GUI(QDialog):
         self.n_box.setValue(self.n)
         self.k_box.setValue(self.k)
 
-        self.setWindowTitle("Handwritting recognition system")
+        self.setWindowTitle("Handwriting recognition system")
 
     def prepare_layout(self):
         """ Method that sets GUI's layout and adds to it all the widgets. """
         self.layout.addWidget(self.canvas.get_canvas())
+
         self.layout.addWidget(self.result_label)
         self.layout.addWidget(self.next_img_btn)
+
         self.layout.addWidget(self.explanatory_label)
         self.layout.addWidget(self.k_box)
 
@@ -78,22 +80,24 @@ class GUI(QDialog):
         self.layout.addWidget(self.graph_btn)
         self.layout.addWidget(self.save_btn)
         self.layout.addWidget(self.graph_from_file_dialog)
+
         self.layout.addWidget(self.exit_app_btn)
 
         self.setLayout(self.layout)
 
     def initialise_event_handling(self):
         """ Connect the widgets events with their corresponding methods. """
+        # Spinboxes
         self.k_box.valueChanged.connect(self.change_k)
         self.n_box.valueChanged.connect(self.change_n)
-
+        # Buttons
         self.test_cases_btn.clicked.connect(self.classify_n)
         self.next_img_btn.clicked.connect(self.get_next_image)
-        self.graph_btn.clicked.connect(self.statistics.generate_plots)
-        self.save_btn.clicked.connect(self.statistics.save_in_file)
-        self.graph_from_file_dialog.clicked.connect(self.statistics.load_plot_from_file)
         self.exit_app_btn.clicked.connect(GUI.exit_application)
-
+        self.save_btn.clicked.connect(self.statistics.save_in_file)
+        self.graph_btn.clicked.connect(self.statistics.generate_plots)
+        self.graph_from_file_dialog.clicked.connect(self.statistics.load_plot_from_file)
+        # Timer
         self.timer.timeout.connect(lambda: self.next_img_btn.setEnabled(True))
 
     def get_next_image(self):
