@@ -28,12 +28,12 @@ class Statistics(metaclass=Singleton):
 
         plt.gca().clear()  # Clear the plot area.
         plt.scatter(range(1, 17, 1), accuracy, label='current accuracy', color='g')
-        plt.plot(range(1, 17, 1), occurrance, label='occurrance', color='r')
 
         plt.xlabel('k')
         plt.ylabel('accuracy and occurance')
         plt.title("Accuracy rate plot")
 
+        plt.axis([1, 15, 0.0, 1.0])
         ax = plt.gca()
         ax.set_xticks(np.arange(1, 16, 1))
 

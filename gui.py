@@ -153,8 +153,12 @@ class GUI(QDialog):
 
             classifier_result = Classifier.classify(crt_test, self.training_mat, self.training_labels, self.k)
 
+            self.statistics.k_occurrance[self.k] += 1
+
             if classifier_result != crt_label:
                 errors += 1
+            else:
+                self.statistics.k_accuracy[self.k] += 1
 
         accuracy = (1.0 - errors / self.n) * 100.0
 
