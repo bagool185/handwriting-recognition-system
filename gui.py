@@ -99,7 +99,7 @@ class GUI(QDialog):
 
         result = "wrong... :("  # Presume the result was wrong.
 
-        self.statistics.k_occurrance[self.k] += 1  # Increment the number of tests of given k for statistics purposes.
+        self.statistics.k_occurrence[self.k] += 1  # Increment the number of tests of given k for statistics purposes.
 
         if classifier_result == next_img_label:  # If the classifier got the digit right.
             result = "right! :)"
@@ -136,7 +136,7 @@ class GUI(QDialog):
 
             classifier_result = Classifier.classify(crt_test, self.training_mat, self.training_labels, self.k)
 
-            self.statistics.k_occurrance[self.k] += 1
+            self.statistics.k_occurrence[self.k] += 1
 
             if classifier_result != crt_label:
                 errors += 1

@@ -10,30 +10,30 @@ class Statistics(metaclass=Singleton):
     """ Class that performs calculations and provides statistical data visualisation. """
 
     def __init__(self):
-        self.k_occurrance = np.zeros(16)  # List initialised with 0 that will count the number of tests of given k.
+        self.k_occurrence = np.zeros(16)  # List initialised with 0 that will count the number of tests of given k.
         self.k_accuracy = np.zeros(16)  # List initialised with 0 that will store the accuracy of given k.
 
-    def generate_plots(self, occurrance=None, accuracy=None):
+    def generate_plots(self, occurrence=None, accuracy=None):
         """ Generate and display the plots for the current tests (if the method is called without parameters) or for
             data loaded from a given file (if the method is called with parameters)
         """
 
-        if not isinstance(occurrance, list):
-            occurrance = self.k_occurrance
-            accuracy = self.k_accuracy
+        if not isinstance(occurrence, list):
+            occurrence = self.k_occurrence[0:]
+            accuracy = self.k_accuracy[0:]
 
-        for k in range(1, 16, 1):  # Calculate the accuracy for each k.
-            if occurrance[k] > 0:
-                accuracy[k] /= occurrance[k]
+        for k in range(15):  # Calculate the accuracy for each k.
+            if occurrence[k] > 0:
+                accuracy[k] /= occurrence[k]
 
         plt.gca().clear()  # Clear the plot area.
-        plt.scatter(range(1, 17, 1), accuracy, label='current accuracy', color='g')
+        plt.scatter(range(16), accuracy, label='current accuracy', color='g')
 
         plt.xlabel('k')
         plt.ylabel('accuracy and occurance')
         plt.title("Accuracy rate plot")
 
-        plt.axis([1, 15, 0.0, 1.0])
+        plt.axis([1, 16, 0.0, 1.0])
         ax = plt.gca()
         ax.set_xticks(np.arange(1, 16, 1))
 
@@ -47,8 +47,8 @@ class Statistics(metaclass=Singleton):
         try:
             file_path = QFileDialog.getOpenFileName(None, 'OpenFile', '.', 'CSV files (*.csv)')
 
-            k_occurrance = [0 for k in range(1, 17, 1)]
-            k_accuracy = [0 for k in range(1, 17, 1)]
+            k_occurrence = [0 for k in range(17)]
+            k_accuracy = [0 for k in range(17)]
 
             with open(file_path[0], "r") as csv_file:
                 try:
@@ -58,13 +58,13 @@ class Statistics(metaclass=Singleton):
                         # The lines are structured as follows:
                         # k, number of tests ran of k, accuracy of tests ran with k
                         k = int(row[0])
-                        occurrance = int(row[1])
+                        occurrence = int(row[1])
                         accuracy = float(row[2])
 
-                        k_occurrance[k] = occurrance
+                        k_occurrence[k] = occurrence
                         k_accuracy[k] = accuracy
 
-                        self.generate_plots(k_occurrance, k_accuracy)
+                        self.generate_plots(k_occurrence, k_accuracy)
 
                 except IOError as e:
                     QMessageBox.warning(None, "Loading data error",
@@ -89,7 +89,7 @@ class Statistics(metaclass=Singleton):
             with open(file_path[0], "w") as csv_file:
                 try:
                     for k in range(1, 16, 1):
-                        csv_file.write(f"{k},{int(self.k_occurrance[k])},{self.k_accuracy[k]}\n")
+                        csv_file.write(f"{k},{int(self.k_occurrence[k])},{self.k_accuracy[k]}\n")
 
                 except IOError as e:
                     QMessageBox.warning(None, "Saving file error",
