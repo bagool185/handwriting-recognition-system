@@ -8,7 +8,7 @@ import os
 class Test(metaclass=Singleton):
     """ Class that manipulates the test data set from the MNIST data set. """
     def __init__(self):
-        mndata = MNIST(os.path.join(os.getcwd(),'MNIST_samples'))  # Load the MNIST data set
+        mndata = MNIST(os.path.join(os.getcwd(), 'MNIST_samples'))  # Load the MNIST data set
         self.testing_images, self.testing_labels = mndata.load_testing()  # Load the MNIST test data set.
         self.test_size = len(self.testing_images)
         self.chosen_test_indexes = list()  # Store the random chosen indexes so tests won't repeat.

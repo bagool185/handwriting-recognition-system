@@ -5,7 +5,6 @@ from PyQt5.QtCore import QTimer
 from error_handling import InvalidK
 from statistics import Statistics
 from classifier import Classifier
-from singleton import Singleton
 from test import Test
 
 
