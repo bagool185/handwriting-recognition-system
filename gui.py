@@ -73,7 +73,9 @@ class GUI(QDialog):
     def initialise_event_handling(self):
         """ Connect the widgets events with their corresponding methods. """
         self.k_box.valueChanged.connect(self.change_k)
+        self.n_box.valueChanged.connect(self.change_n)
 
+        self.test_cases_btn.clicked.connect(self.classify_n)
         self.next_img_btn.clicked.connect(self.get_next_image)
         self.graph_btn.clicked.connect(self.statistics.generate_plots)
         self.save_btn.clicked.connect(self.statistics.save_in_file)
@@ -131,6 +133,32 @@ class GUI(QDialog):
         except InvalidN as e:
             QMessageBox.warning(None, "Invalid n value error message", str(e))
             self.n_box.setValue(self.n)
+
+    def classify_n(self):
+        """ Classify the first n tests from the MNIST test data set, where n is chosen by the user"""
+        QMessageBox.information(None, "Notice",
+                                "Classification is in progress and might take some  please don't exit the application.")
+
+        errors = 0.0
+
+        for index in range(self.n):
+            crt_test = self.testing_objects.testing_images[0]
+            crt_label = self.testing_objects.testing_labels[0]
+
+            classifier_result = Classifier.classify(crt_test, self.training_mat, self.training_labels, self.k)
+
+            if classifier_result != crt_label:
+                errors += 1
+
+        accuracy = (1.0 - errors / self.n) * 100.0
+
+        classification_results = f"""Classification complete. The results are as follows:
+                                     k: {self.k}      number_of_tests: {self.n}
+                                     accuracy: {accuracy} %
+                                     number_of_errors: {errors}
+                                  """
+
+        QMessageBox.information(None, "Classification results", classification_results)
 
     @staticmethod
     def exit_application():
