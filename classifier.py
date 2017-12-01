@@ -17,7 +17,7 @@ class Classifier:
         diff_mat = tile(in_x, (data_set_img_size, 1)) - data_set  # Stores the vector differences.
         diff_mat **= 2
         sq_distances = diff_mat.sum(axis=1)
-        distances = sq_distances ** 0.5  # The final Euclidian distances.
+        distances = sq_distances ** 0.5  # The final Euclidean distances.
         sorted_dist_indices = distances.argsort()  # The indices that would sort distances.
         class_count = {}
 
