@@ -2,7 +2,7 @@ from singleton import Singleton
 from matplotlib import pyplot as plt
 from PyQt5.QtWidgets import QMessageBox
 from error_handling import InvalidImageSize
-from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 
 class Canvas(metaclass=Singleton):
